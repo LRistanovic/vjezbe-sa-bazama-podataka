@@ -1,0 +1,34 @@
+1.
+a)
+
+SELECT film.naslov, COUNT(grad.naziv) FROM
+film JOIN projekcija
+ON film.fid = projekcija.fid
+JOIN bioskop
+ON projekcija.bid = bioskop.bid
+JOIN grad
+ON bioskop.naziv = grad.naziv
+GROUP BY film.fid
+WHERE COUNT(grad.naziv) > 5
+
+b)
+SELECT film.fid, COUNT(projekcija.pid) FROM
+film JOIN projekcija
+ON film.fid = projekcija.fid
+GROUP BY film.fid
+ORDER BY COUNT(projekcija.pid) DESC
+LIMIT 1
+
+c)
+SELECT film.fid FROM
+film JOIN projekcija
+ON film.fid = projekcija.fid
+JOIN bioskop
+ON projekcija.bid = bioskop.bid
+GROUP BY film.fid
+WHERE COUNT(bioskop.bid) = (SELECT COUNT(bid) FROM bioskop)
+
+2.
+a) SELECT * FROM sala WHERE kapacitet > 50
+b) SELECT * FROM sala ORDER BY kapacitet DESC LIMIT 1
+c) SELECT bid FROM sala GROUP BY bid WHERE COUNT(broj) > 1
